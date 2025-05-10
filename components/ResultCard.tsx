@@ -1,5 +1,3 @@
-// components/ResultCard.tsx
-
 type ResultCardProps = {
   mbti: string;
   title: string;
@@ -28,9 +26,8 @@ export default function ResultCard({
       <p className="text-gray-700 mb-4">{description}</p>
       <h3 className="font-semibold">추천 여행지</h3>
       <ul className="mt-2 space-y-1">
-        {recommendedPlaces.map((place, idx) => (
-          <li key={idx}>• {place}</li>
-        ))}
+        {Array.isArray(recommendedPlaces) &&
+          recommendedPlaces.map((place, idx) => <li key={idx}>• {place}</li>)}
       </ul>
     </div>
   );

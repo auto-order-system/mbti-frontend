@@ -15,10 +15,15 @@ export default function ResultPage() {
   const [result, setResult] = useState<Result | null>(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/result/${mbti}`)
-      .then((res) => res.json())
-      .then((data) => setResult(data))
-      .catch(() => setResult(null));
+    const stored = localStorage.getItem("mbti_result");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      setResult(parsed);
+    } else {
+      fetch("http://localhost:8080/api/mbti/questions") // 리디렉션 방지용
+        .then(() => setResult(null))
+        .catch(() => setResult(null));
+    }
   }, [mbti]);
 
   if (!result)
