@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { questions } from "@/data/questions";
 import TravelImages from "@/components/travel-images";
+import { useState } from "react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export default function QuizPage() {
   const router = useRouter();
@@ -61,15 +62,15 @@ export default function QuizPage() {
 
       {/* 메인 콘텐츠 */}
       <div className="flex flex-col items-center justify-center min-h-screen px-4 py-12 relative z-10">
-        <div className="w-full max-w-md mx-auto">
-          <div className="text-center mb-8">
+        <Card className="w-full max-w-md mx-auto">
+          <CardHeader className="text-center mb-8">
             <h2 className="text-4xl font-bold text-yellow-500 mb-4">
               Q {String(currentQuestion + 1).padStart(2, "0")}.
             </h2>
             <p className="text-xl font-medium">{currentQ.question}</p>
-          </div>
+          </CardHeader>
 
-          <div className="space-y-4">
+          <CardContent className="space-y-4">
             {currentQ.options.map((option, index) => (
               <button
                 key={index}
@@ -79,8 +80,8 @@ export default function QuizPage() {
                 {option.text}
               </button>
             ))}
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
