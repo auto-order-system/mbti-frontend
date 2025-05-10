@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { mbtiDestinations, defaultMbtiInfo } from "@/data/mbti";
 import TravelImages from "@/components/travel-images";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export default function ResultPage() {
   const searchParams = useSearchParams();
@@ -36,43 +37,44 @@ export default function ResultPage() {
               </h3>
               <div className="space-y-6">
                 {mbtiInfo.destinations.map((destination, index) => (
-                  <div
-                    key={index}
-                    className="bg-gray-50 rounded-lg overflow-hidden"
-                  >
-                    <div className="h-48 relative">
-                      <Image
-                        src={
-                          destination.image ||
-                          `/placeholder.svg?height=200&width=400`
-                        }
-                        alt={destination.name}
-                        fill
-                        style={{ objectFit: "cover" }}
-                      />
-                    </div>
-                    <div className="p-4">
-                      <h4 className="font-bold text-lg">{destination.name}</h4>
-                      <p className="text-gray-600">{destination.reason}</p>
-                    </div>
-                  </div>
+                  <Link key={index} href={"/"} className="block">
+                    <Card className="bg-gray-50 rounded-lg overflow-hidden">
+                      <CardContent className="h-48 relative">
+                        <Image
+                          src={
+                            destination.image ||
+                            `/placeholder.svg?height=200&width=400`
+                          }
+                          alt={destination.name}
+                          fill
+                          style={{ objectFit: "cover" }}
+                        />
+                      </CardContent>
+                      <CardHeader className="p-4">
+                        <h4 className="font-bold text-lg">
+                          {destination.name}
+                        </h4>
+                        <p className="text-gray-600">{destination.reason}</p>
+                      </CardHeader>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </div>
+          </div>
 
-            <div className="flex justify-center mb-6">
-              <Link href="/quiz">
-                <button className="bg-white border border-gray-300 rounded-full py-2 px-6 text-sm hover:bg-gray-50 transition-colors">
-                  테스트 다시하기 &gt;
-                </button>
-              </Link>
-            </div>
-
-            <div className="flex justify-center mb-10">
+          <div className="flex justify-center mb-6">
+            <Link href="/quiz">
               <button className="bg-white border border-gray-300 rounded-full py-2 px-6 text-sm hover:bg-gray-50 transition-colors">
-                ▶ 친구에게 테스트 공유하기 ◀
+                테스트 다시하기 &gt;
               </button>
-            </div>
+            </Link>
+          </div>
+
+          <div className="flex justify-center mb-10">
+            <button className="bg-white border border-gray-300 rounded-full py-2 px-6 text-sm hover:bg-gray-50 transition-colors">
+              ▶ 친구에게 테스트 공유하기 ◀
+            </button>
           </div>
         </div>
       </div>
