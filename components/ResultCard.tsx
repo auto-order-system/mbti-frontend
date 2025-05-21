@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useRouter } from "next/navigation"; // ✅ 추가
 
 type ResultCardProps = {
   mbti: string;
@@ -43,6 +44,8 @@ export default function ResultCard({
   recommendedPlaces,
   image,
 }: ResultCardProps) {
+  const router = useRouter(); // ✅ useRouter 사용
+
   useEffect(() => {
     if (window.Kakao && !window.Kakao.isInitialized()) {
       window.Kakao.init("1765353c68ee9c4bbb64573013907e09");
@@ -113,6 +116,7 @@ export default function ResultCard({
         ))}
       </div>
 
+      {/* ✅ 공유 + 다시 테스트 버튼 */}
       <div className="flex justify-center gap-4">
         <button
           onClick={copyLink}
@@ -126,6 +130,16 @@ export default function ResultCard({
         >
           🟡 카카오 공유
         </button>
+      </div>
+
+      {/* ✅ 다시 테스트하기 버튼 - 아래 줄로 분리 */}
+      <div className="mt-4 flex justify-center">
+        <a
+          href="/"
+          className="bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-full text-sm text-blue-800 font-medium shadow"
+        >
+          🔄 다시 테스트하기
+        </a>
       </div>
     </div>
   );
