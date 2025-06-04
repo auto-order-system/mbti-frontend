@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation"; // ✅ 추가
+import { useRouter } from "next/navigation";
 
 type ResultCardProps = {
   mbti: string;
@@ -17,7 +17,6 @@ declare global {
   }
 }
 
-// ✅ MBTI별 배경색 매핑
 const mbtiColorMap: Record<string, string> = {
   ENFP: "bg-orange-100",
   INTJ: "bg-purple-100",
@@ -44,7 +43,7 @@ export default function ResultCard({
   recommendedPlaces,
   image,
 }: ResultCardProps) {
-  const router = useRouter(); // ✅ useRouter 사용
+  const router = useRouter();
 
   useEffect(() => {
     if (window.Kakao && !window.Kakao.isInitialized()) {
