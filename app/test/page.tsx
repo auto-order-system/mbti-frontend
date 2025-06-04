@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import QuestionCard from "@/components/QuestionCard";
@@ -25,7 +26,6 @@ export default function TestPage() {
     fetch("http://localhost:8080/api/mbti/questions")
       .then((res) => res.json())
       .then((data) => {
-        console.log("받은 데이터:", data);
         setQuestions(data);
         setIsLoading(false);
       })
@@ -59,18 +59,38 @@ export default function TestPage() {
   };
 
   if (isLoading)
-    return <div className="text-center py-10">질문 불러오는 중...</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-yellow-50 text-xl">
+        질문을 불러오는 중입니다...
+      </div>
+    );
 
   return (
-    <main className="max-w-2xl mx-auto p-6">
-      {questions.length > 0 && (
-        <QuestionCard
-          id={questions[currentIndex].id}
-          question={questions[currentIndex].question}
-          options={questions[currentIndex].options}
-          onSelect={handleSelect}
-        />
-      )}
+    <main className="min-h-screen flex items-center justify-center bg-yellow-50 px-4 py-16">
+      <div className="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-2xl text-center animate-slidein">
+        {questions.length > 0 && (
+          <>
+            <p className="text-lg text-gray-500 mb-2">
+              {currentIndex + 1} / {questions.length}
+            </p>
+            <h2 className="text-2xl md:text-3xl font-bold text-yellow-600 mb-6 font-[Cafe24Ssurround]">
+              {questions[currentIndex].question}
+            </h2>
+
+            <div className="flex flex-col gap-4">
+              {questions[currentIndex].options.map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => handleSelect(option.value)}
+                  className="bg-yellow-100 hover:bg-yellow-200 active:scale-95 transition-all text-yellow-800 font-semibold py-3 px-6 rounded-xl shadow-md"
+                >
+                  {option.text}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
     </main>
   );
 }

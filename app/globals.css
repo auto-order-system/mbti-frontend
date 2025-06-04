@@ -5,13 +5,6 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -22,5 +15,197 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Cafe24Ssurround", Arial, Helvetica, sans-serif;
 }
+
+@font-face {
+  font-family: "Cafe24Ssurround";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304@1.0/Cafe24SsurroundAir.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ✨ 애니메이션 추가 */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-15deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(-15deg);
+  }
+}
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes slidein {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slidein {
+  animation: slidein 1s ease-out forwards;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+.animate-shine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 150, 0.4),
+    transparent
+  );
+  animation: shine 2s linear infinite;
+}
+
+@keyframes cloudMove1 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(120vw);
+  }
+}
+
+@keyframes cloudMove2 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-130vw);
+  }
+}
+
+.animate-cloud1 {
+  animation: cloudMove1 80s linear infinite;
+}
+
+.animate-cloud2 {
+  animation: cloudMove2 120s linear infinite;
+}
+
+
+/* ✈️ 비행기 흔들리며 전진하는 느낌 */
+@keyframes planeLoop {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(180px, -300px) rotate(10deg);
+  }
+  50% {
+    transform: translate(200px, 0px) rotate(20deg);
+  }
+  75% {
+    transform: translate(1080px, 340px) rotate(10deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+.animate-plane-loop {
+  animation: planeLoop 5s ease-in-out infinite;
+}
+
+
+
+/* 🛂 여권 - 천천히 둥둥 떠오름 */
+@keyframes passportFloatLoop {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-20px, -30px) rotate(-5deg);
+  }
+  50% {
+    transform: translate(-10px, -60px) rotate(-3deg);
+  }
+  75% {
+    transform: translate(0px, -30px) rotate(2deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+.animate-passport-loop {
+  animation: passportFloatLoop 6s ease-in-out infinite;
+}
+
+/*지도*/
+@keyframes mapWobbleLoop {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  20% {
+    transform: translate(10px, -10px) rotate(2deg);
+  }
+  40% {
+    transform: translate(-10px, -15px) rotate(-2deg);
+  }
+  60% {
+    transform: translate(5px, -5px) rotate(1deg);
+  }
+  80% {
+    transform: translate(-5px, -10px) rotate(-1deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+.animate-map-loop {
+  animation: mapWobbleLoop 4.5s ease-in-out infinite;
+}
+
+
+/*카메라*/
+@keyframes cameraPulseLoop {
+  0% {
+    transform: scale(1) translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(1.04) translate(-3px, 2px) rotate(-1deg);
+    opacity: 0.95;
+  }
+  40% {
+    transform: scale(1.08) translate(2px, -3px) rotate(1deg);
+    opacity: 0.9;
+  }
+  60% {
+    transform: scale(1.04) translate(-2px, 1px) rotate(-0.5deg);
+    opacity: 0.95;
+  }
+  80% {
+    transform: scale(1.02) translate(1px, -1px) rotate(0.5deg);
+    opacity: 0.98;
+  }
+  100% {
+    transform: scale(1) translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+}
+.animate-camera-loop {
+  animation: cameraPulseLoop 3.5s ease-in-out infinite;
+}
+

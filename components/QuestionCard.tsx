@@ -1,5 +1,3 @@
-// src/components/QuestionCard.tsx
-
 type Option = {
   text: string;
   value: string;
@@ -19,16 +17,16 @@ export default function QuestionCard({
   onSelect,
 }: QuestionCardProps) {
   return (
-    <div className="w-full bg-white p-6 rounded-xl shadow-md">
-      <p className="text-lg font-semibold mb-4">
+    <div className="w-full bg-white p-8 rounded-2xl shadow-lg text-center">
+      <p className="text-xl md:text-2xl font-bold mb-6 text-yellow-600 font-[Cafe24Ssurround]">
         {id}. {question}
       </p>
-      <div className="space-y-2">
+      <div className="flex flex-col gap-4">
         {options.map((opt, index) => (
           <button
             key={index}
             onClick={() => onSelect(opt.value)}
-            className="w-full text-left bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-md transition"
+            className="bg-blue-100 hover:bg-blue-200 active:scale-95 px-6 py-3 rounded-lg text-blue-800 font-semibold transition"
           >
             {opt.text}
           </button>

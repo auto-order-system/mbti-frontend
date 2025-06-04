@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation"; // ✅ 추가
 
 type ResultCardProps = {
   mbti: string;
@@ -17,7 +16,6 @@ declare global {
   }
 }
 
-// ✅ MBTI별 배경색 매핑
 const mbtiColorMap: Record<string, string> = {
   ENFP: "bg-orange-100",
   INTJ: "bg-purple-100",
@@ -44,8 +42,6 @@ export default function ResultCard({
   recommendedPlaces,
   image,
 }: ResultCardProps) {
-  const router = useRouter(); // ✅ useRouter 사용
-
   useEffect(() => {
     if (window.Kakao && !window.Kakao.isInitialized()) {
       window.Kakao.init("1765353c68ee9c4bbb64573013907e09");
@@ -57,7 +53,7 @@ export default function ResultCard({
       objectType: "feed",
       content: {
         title: `${mbti} - ${title}`,
-        description: description,
+        description,
         imageUrl: `${window.location.origin}${image}`,
         link: {
           webUrl: window.location.href,
@@ -85,58 +81,66 @@ export default function ResultCard({
 
   return (
     <div
-      className={`w-full ${backgroundClass} p-8 rounded-2xl shadow-xl transition-all duration-300 max-w-2xl mx-auto border border-gray-300`}
+      className={`w-full ${backgroundClass} p-10 rounded-3xl shadow-xl transition-all duration-300 max-w-3xl mx-auto border border-gray-200 space-y-6`}
     >
-      <h2 className="text-3xl font-black text-gray-800 mb-3">
-        {mbti} - {title}
-      </h2>
-      <img
-        src={image}
-        alt={`${mbti} 이미지`}
-        className="mx-auto w-48 h-48 rounded-full object-cover mb-5 shadow-lg hover:scale-105 transition-transform"
-      />
-      <p className="text-gray-700 mb-6 text-base leading-relaxed">
+      {/* MBTI 라벨 */}
+      <div className="text-center">
+        <p className="text-yellow-600 text-sm font-semibold mb-1">여행자 유형</p>
+        <h2 className="text-4xl font-bold text-yellow-700 font-[Cafe24Ssurround]">
+          ✈️ {mbti} 유형의 여행자
+        </h2>
+      </div>
+
+      {/* 이미지 영역 */}
+      <div className="relative w-full flex justify-center items-center my-6">
+        <div className="absolute w-52 h-52 rounded-full bg-white/60 blur-2xl animate-pulse"></div>
+        <img
+          src={image}
+          alt={`${mbti} 이미지`}
+          className="relative z-10 w-48 h-48 object-cover rounded-2xl shadow-lg hover:rotate-1 transition-transform"
+        />
+      </div>
+
+      {/* 설명 */}
+      <p className="text-gray-800 text-base leading-relaxed text-center px-4">
         {description}
       </p>
 
-      <h3 className="text-xl font-semibold mb-3 text-slate-800">
-        🗺️ 추천 여행지
-      </h3>
-      <div className="grid grid-cols-2 gap-4 mb-8">
-        {recommendedPlaces.map((place, idx) => (
-          <a
-            key={idx}
-            href={`https://map.kakao.com/?q=${encodeURIComponent(place)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white/70 p-3 rounded-lg shadow hover:shadow-md hover:scale-[1.03] transition text-blue-800 text-sm font-medium text-center"
-          >
-            🧭 {place}
-          </a>
-        ))}
+      {/* 추천지 */}
+      <div>
+        <h3 className="text-lg font-bold text-slate-800 mb-3 text-center">📍 추천 여행지</h3>
+        <div className="flex flex-wrap justify-center gap-3">
+          {recommendedPlaces.map((place, idx) => (
+            <a
+              key={idx}
+              href={`https://map.kakao.com/?q=${encodeURIComponent(place)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white px-4 py-2 rounded-full shadow text-sm text-blue-700 hover:bg-blue-100 transition"
+            >
+              🧭 {place}
+            </a>
+          ))}
+        </div>
       </div>
 
-      {/* ✅ 공유 + 다시 테스트 버튼 */}
-      <div className="flex justify-center gap-4">
+      {/* 공유 버튼 */}
+      <div className="flex flex-col md:flex-row justify-center gap-4 pt-4">
         <button
           onClick={copyLink}
-          className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-full flex items-center gap-2 text-sm shadow"
+          className="bg-gray-100 hover:bg-gray-200 px-5 py-2 rounded-full text-sm shadow text-gray-700"
         >
           🔗 링크 복사
         </button>
         <button
           onClick={shareKakao}
-          className="bg-yellow-300 hover:bg-yellow-400 px-4 py-2 rounded-full flex items-center gap-2 text-sm shadow"
+          className="bg-yellow-400 hover:bg-yellow-500 px-5 py-2 rounded-full text-sm shadow text-yellow-900 font-semibold"
         >
           🟡 카카오 공유
         </button>
-      </div>
-
-      {/* ✅ 다시 테스트하기 버튼 - 아래 줄로 분리 */}
-      <div className="mt-4 flex justify-center">
         <a
           href="/"
-          className="bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-full text-sm text-blue-800 font-medium shadow"
+          className="border border-blue-200 text-blue-700 hover:bg-blue-50 px-5 py-2 rounded-full text-sm font-medium shadow"
         >
           🔄 다시 테스트하기
         </a>
